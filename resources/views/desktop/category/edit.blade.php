@@ -30,11 +30,11 @@
                         <select name="parent_id" class="w-full rounded-lg border border-[#e8e8f7] px-[12px] lg:px-[16px] py-[8px] lg:py-[10px] focus:ring-0 focus:border-[#e8e8f7] text-sm mt-2">
                             <option value="0">دسته اصلی</option>
                             @foreach($categories as $parentCategory)
-                                <optin
+                                <option
                                     @if($parentCategory->id == $category->parent_id)
                                         selected
                                     @endif
-                                    value="{{$parentCategory->id}}">{{$parentCategory->name}}</optin>
+                                    value="{{$parentCategory->id}}">{{$parentCategory->name}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -50,6 +50,14 @@
                     <div>
                         <label class="block text-sm">ایکن</label>
                         <input name="icon" value="{{$category->icon}}" class="w-full rounded-lg border border-[#e8e8f7] px-[12px] lg:px-[16px] py-[8px] lg:py-[10px] focus:ring-0 focus:border-[#e8e8f7] text-sm mt-2" type="text">
+                    </div>
+                    <div>
+                        <label class="block text-sm">نام برچسب</label>
+                        <select name="tags[]" multiple="multiple" class="select-multiple w-full rounded-lg border border-[#e8e8f7] px-[12px] lg:px-[16px] py-[8px] lg:py-[10px] focus:ring-0 focus:border-[#e8e8f7] text-sm mt-2">
+                            @foreach($tags as $tag)
+                                <option value="{{$tag->id}}" @if(in_array($tag->id, $category->tags->pluck('id')->toArray())) selected @endif>{{$tag->name}}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
                 <div class="flex justify-center sm:justify-end items-center gap-2 mt-6">

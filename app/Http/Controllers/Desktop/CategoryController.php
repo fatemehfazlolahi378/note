@@ -6,15 +6,20 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Desktop\Category\CategoryStoreRequest;
 use App\Http\Requests\Desktop\Category\CategoryUpdateRequest;
 use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
+use Mockery\Exception;
 
 class CategoryController extends Controller
 {
     protected Category $category;
-    public function __construct(Category $category)
+    protected Tag $tag;
+    public function __construct(Category $category , Tag $tag)
     {
         $this->category = $category;
+        $this->tag = $tag;
     }
 
     /**
@@ -32,7 +37,8 @@ class CategoryController extends Controller
     public function create()
     {
         $categories = $this->category->get();
-        return view('desktop.category.create' , compact('categories'));
+        $tags = $this->tag->get();
+        return view('desktop.category.create' , compact('categories','tags'));
     }
 
     /**
@@ -40,14 +46,23 @@ class CategoryController extends Controller
      */
     public function store(CategoryStoreRequest $request)
     {
-        $this->category->name = $request->get('name');
-        $this->category->slug = \Str::lower(str_replace(' ', '-', $request->get('slug')));
-        $this->category->icon = $request->get('icon');
-        $this->category->parent_id = $request->get('parent_id');
-        $this->category->save();
+        try {
+            $this->category->name = $request->get('name');
+            $this->category->slug = \Str::lower(str_replace(' ', '-', $request->get('slug')));
+            $this->category->icon = $request->get('icon');
+            $this->category->parent_id = $request->get('parent_id');
+            $this->category->save();
 
+            if($request->has('tags')){
+                $this->category->tags()->attach($request->get('tags'));
+            }
+            DB::commit();
+        }catch (Exception $e){
+            report($e);
+            DB::rollback();
+            return response()->json(['title' => 'دسته بندی', 'message' => ' ثبت نشد.'], 500);
+        }
         toast('دسته با موفقیت ثبت شد','success');
-
         return redirect()->route('desktop.categories.index');
 
     }
@@ -66,7 +81,8 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
         $categories = $this->category->get();
-        return view('desktop.category.edit', compact('category' , 'categories'));
+        $tags = $this->tag->get();
+        return view('desktop.category.edit', compact('category' , 'categories','tags'));
     }
 
     /**
@@ -74,11 +90,21 @@ class CategoryController extends Controller
      */
     public function update(CategoryUpdateRequest $request , Category $category)
     {
-        $category->name = $request->get('name');
-        $category->slug = \Str::lower(str_replace(' ', '-', $request->get('slug')));
-        $category->icon = $request->get('icon');
-        $category->parent_id = $request->get('parent_id');
-        $category->save();
+        try {
+            $category->name = $request->get('name');
+            $category->slug = \Str::lower(str_replace(' ', '-', $request->get('slug')));
+            $category->icon = $request->get('icon');
+            $category->parent_id = $request->get('parent_id');
+            $category->save();
+            if($request->has('tags')){
+                $category->tags()->sync($request->get('tags'));
+            }
+
+        }catch (Exception $e){
+            report($e);
+            DB::rollback();
+            return response()->json(['title' => 'دسته بندی', 'message' => ' ثبت نشد.'], 500);
+        }
 
         toast('دسته با موفقیت ویرایش شد','success');
 
@@ -101,6 +127,9 @@ class CategoryController extends Controller
         return response()->json('دسته مورد نظر با موفقیت حذف شد', 200);
     }
 
+    /**
+     * get subcategory
+     */
     public function getSubCat($id)
     {
         if (\request()->ajax()) {
@@ -113,4 +142,15 @@ class CategoryController extends Controller
         }
         return redirect(url('/'));
     }
+
+    /**
+     * list category dropdown
+     */
+
+    public function list()
+    {
+        $categories = $this->category->whereParentId(0)->get();
+        return view('desktop.category.list' , compact('categories'));
+    }
+
 }

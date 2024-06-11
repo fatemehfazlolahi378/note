@@ -4,12 +4,12 @@
         <div class="flex justify-between lg:py-4">
             <ul class="flex items-center text-[12px] lg:text-[16px]">
                 <li class="after:content-['/'] after:px-1 lg:after:px-2"><a href="{{route('desktop.index')}}">صفحه اصلی</a></li>
-                <li> جدول دسته ها</li>
+                <li> لیست دسته ها</li>
             </ul>
             <a href="{{route('desktop.notes.create')}}" class="flex items-center justify-center lg:w-[150px] w-[130px] xl:h-[45px] h-[40px] xl:leading-[45px] leading-[40px] bg-[#326273] text-white text-[12px] lg:text-sm rounded-[8px]"><span class="fa fa-plus ml-1"></span>افزودن یادداشت جدید</a>
         </div>
         <div class="p-4 lg:px-8 lg:py-5 bg-[#F3F7FA] rounded-lg">
-            <h3 class="text-[14px] lg:text-[16px]">جدول یادداشت</h3>
+            <h3 class="text-[14px] lg:text-[16px]">لیست یادداشت</h3>
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table class="w-full text-sm text-right rtl:text-right text-gray-500 my-3">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50">

@@ -47,6 +47,14 @@
                         <label class="block text-sm">ایکن</label>
                         <input name="icon" value="{{old('icon')}}" class="w-full rounded-lg border border-[#e8e8f7] px-[12px] lg:px-[16px] py-[8px] lg:py-[10px] focus:ring-0 focus:border-[#e8e8f7] text-sm mt-2" type="text">
                     </div>
+                    <div>
+                        <label class="block text-sm">نام برچسب</label>
+                        <select name="tags[]" multiple="multiple" class="select-multiple w-full rounded-lg border border-[#e8e8f7] px-[12px] lg:px-[16px] py-[8px] lg:py-[10px] focus:ring-0 focus:border-[#e8e8f7] text-sm mt-2">
+                            @foreach($tags as $tag)
+                                <option value="{{$tag->id}}" @if(old('tag_id') == $tag->id) selected @endif>{{$tag->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
                 <div class="flex justify-center sm:justify-end items-center gap-2 mt-6">
                     <button type="submit" class="lg:w-[110px] sm:w-[100px] w-[90px] lg:h-[40px] h-[35px] lg:leading-[40px] leading-[35px] border border-lime-700 text-lime-700 lg:text-sm text-[12px] rounded-[8px]  hover:bg-lime-700 hover:text-white">ثبت</button>

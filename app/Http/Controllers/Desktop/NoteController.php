@@ -66,21 +66,41 @@ class NoteController extends Controller
      */
     public function edit(Note $note)
     {
-        $categories = $this->category->whereParentId(0)->get();
-        return view('desktop.note.edit', compact('note' , 'categories'));
+        $all_categories = [];
+        $categories = $this->category->whereParentId($note->category->parent_id)->get();
+        $categories->map(function ($category) use ($note){
+            $category->selected = $category->id == $note->category_id ? true : false;
+        });
+        array_unshift($all_categories, $categories);
+
+        $category = $note->category()->first();
+        $category_count = $note->category->parent->count();
+
+        while ($category_count) {
+            $category = $category->parent()->first();
+            $category_count = $category->parent()->count();
+            $categories = $this->category->whereParentId($category->parent_id)->get();
+            $categories->map(function ($cat) use ($category) {
+                $cat->selected = $cat->id == $category->id ? true : false;
+            });
+            array_unshift($all_categories, $categories);
+
+        }
+
+        return view('desktop.note.edit', compact('note' , 'all_categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(NoteUpdateRequest $request, $note)
+    public function update(NoteUpdateRequest $request, Note $note)
     {
         $note->title = $request->get('title');
         $note->category_id = $request->get('category_id');
         $note->content = $request->get('content');
         $note->save();
 
-        toast('یادداشت با موفقیت ثبت شد','success');
+        toast('یادداشت با موفقیت ویرایش شد','success');
 
         return redirect()->route('desktop.notes.index');
     }
@@ -88,7 +108,7 @@ class NoteController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($note)
+    public function destroy(Note $note)
     {
         $note->delete();
         return response()->json('یادداشت مورد نظر با موفقیت حذف شد', 200);

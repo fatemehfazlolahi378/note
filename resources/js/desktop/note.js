@@ -3,17 +3,16 @@
         init: function (cnfg) {
             this.config = cnfg;
             this.bindEvents();
-
             if ($('#content-note').length) {
                 this.setupTinyMce();
             }
         },
 
         bindEvents: function () {
-            this.config.subCategoryBox.on('change', '.category_id_advertise', this.getSubCategoryAdvertise);
+            this.config.subCategoryBox.on('change', '.category_id_advertise', this.getSubCategory);
         },
 
-        getSubCategoryAdvertise: function () {
+        getSubCategory: function () {
             let id = $(this).val();
             $(this).nextAll('select').remove();
             $.ajax({
@@ -61,10 +60,6 @@
         },
 
     };
-
-
-
-
     Note.init({
         subCategoryBox: $('.sub-category-box'),
     });

@@ -8,3 +8,5 @@ window.axios = require('axios');
 window.setupTinyMce = require('./tinymce.min');
 require('./delete');
 require('./note');
+require('./sidebar');
+require('./category');

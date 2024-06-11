@@ -27,7 +27,7 @@
                         <span class=" text-[15px] sm:text-[16px] xl:text-[20px]">{{$category_count}}</span>
                     </div>
                     <div class="flex justify-center items-center w-[50px] xl:w-[60px] h-[50px] xl:h-[60px] rounded-[40%] bg-[#F3F7FA] lg:bg-white">
-                        <span class="fa fa-money text-[18px] lg:text-[22px]"></span>
+                        <span class="fa fa-th-large text-[18px] lg:text-[22px]"></span>
                     </div>
                 </div>
             </div>

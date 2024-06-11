@@ -46,4 +46,9 @@ class Category extends Model
     {
         return $this->hasMany(Note::class, 'category_id',);
     }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'category_tag_relation', 'category_id', 'tag_id');
+    }
 }

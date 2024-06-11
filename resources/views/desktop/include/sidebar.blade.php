@@ -12,7 +12,17 @@
     <div class="py-5">
         <ul class="flex flex-col gap-3 px-[20px] text-white text-[15px]">
             <li class="dashboard"><a href="{{route('desktop.index')}}" class="flex gap-3 hover:text-[#ffed66] hover:gap-5 transition-all duration-500 py-3"><span class="fa fa-tachometer text-[20px]"></span>داشبورد</a></li>
-            <li class="category"><a href="{{route('desktop.categories.index')}}" class="flex gap-3 hover:text-[#ffed66] hover:gap-5 transition-all duration-500 py-3"><span class="fa fa-tachometer text-[20px]"></span>دسته بندی</a></li>
+            <li class="dropdown">
+                <div class="btn-dropdown flex gap-3 hover:text-[#ffed66] hover:gap-5 transition-all duration-500 py-3 cursor-pointer">
+                    <span class="fa fa-th-large text-[20px]"></span>
+                    <span class="flex-1 flex items-center justify-between">دسته بندی<i class="fa fa-angle-left icon-left-category transition-all duration-500"></i></span>
+                </div>
+                <ul class="dropdown-menu list-category pr-[9px] text-[14px] flex flex-col gap-4 h-0 overflow-hidden transition-all duration-500">
+                    <li class="category py-1 hover:text-[#ffed66]"><span class="fa fa-caret-left ml-3 text-[15px]"></span><a href="{{route('desktop.categories.index')}}">دسته بندی</a></li>
+                    <li class="list py-1 hover:text-[#ffed66]"><span class="fa fa-caret-left ml-3 text-[15px]"></span><a href="{{route('desktop.categories.list')}}">لیست دسته بندی</a></li>
+                    <li class="tag py-1 hover:text-[#ffed66]"><span class="fa fa-caret-left ml-3 text-[15px]"></span><a  href="{{route('desktop.tags.index')}}">برچسب</a></li>
+                </ul>
+            </li>
             <li class="note"><a href="{{route('desktop.notes.index')}}" class="flex gap-3 hover:text-[#ffed66] hover:gap-5 transition-all duration-500 py-3"><span class="fa fa-file text-[20px]"></span>یادداشت</a></li>
             <form action="{{--route('logout')--}}" method="post" class="w-full">
                 @csrf

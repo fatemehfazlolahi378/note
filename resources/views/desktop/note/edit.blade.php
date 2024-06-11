@@ -7,8 +7,9 @@
         </ul>
         <div class="p-4 lg:px-8 lg:py-5 bg-[#F3F7FA] rounded-lg my-4">
             <h3 class="text-[14px] lg:text-[16px] py-3 border-b mb-4">ویرایش یادداشت</h3>
-            <form action="{{route('desktop.notes.update',$note)}}" method="post" enctype="multipart/form-data">
+            <form action="{{route('desktop.notes.update', $note)}}" method="post" enctype="multipart/form-data">
                 @csrf
+                @method('PATCH')
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                         <label class="text-sm">عنوان یادداشت<span class="text-rose-700">*</span></label>
@@ -21,15 +22,16 @@
                     </div>
                     <div class="sub-category-box">
                         <label class="text-sm block">دسته بندی<span class="text-rose-700">*</span></label>
-                        <select class="category_id_advertise w-full rounded-lg border border-[#e8e8f7] px-[12px] lg:px-[16px] py-[8px] lg:py-[10px] focus:ring-0 focus:border-[#e8e8f7] text-sm mt-3" name="category_id">
-                            <option value="">انتخاب کنید</option>
-                            @foreach($categories as $category)
-                                <option value="{{$category->id}}"
-                                        @if($category->selected) selected @endif>
-                                    {{$category->name}}
-                                </option>
-                            @endforeach
-                        </select>
+                        @foreach($all_categories as $category)
+                            <select class="category_id_advertise w-full rounded-lg border border-[#e8e8f7] px-[12px] lg:px-[16px] py-[8px] lg:py-[10px] focus:ring-0 focus:border-[#e8e8f7] text-sm mt-3" name="category_id">
+                                @foreach($category as $value)
+                                    <option value="{{$value->id}}"
+                                            @if($value->selected) selected @endif>
+                                        {{$value->name}}
+                                    </option>
+                                @endforeach
+                            </select>
+                        @endforeach
                     </div>
                 </div>
                 <div class="mt-4">
