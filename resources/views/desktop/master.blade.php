@@ -13,6 +13,14 @@
  @include('desktop.auth.login')
  @yield('content')
 <script src="{{mix('js/desktop/app.js')}}"></script>
+ @if(Session::has('openModal'))
+     <script type="text/javascript">
+         $(function() {
+             $('#login-modal').addClass('show-modal');
+             document.body.style.overflow = 'hidden'
+         });
+     </script>
+ @endif
 @yield('scripts')
 </body>
 </html>
