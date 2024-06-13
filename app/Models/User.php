@@ -61,6 +61,8 @@ use Spatie\Permission\Traits\HasRoles;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Mag> $magFavorites
  * @property-read int|null $mag_favorites_count
  * @method static \Illuminate\Database\Eloquent\Builder|User whereEmail($value)
+ * @property \Illuminate\Support\Carbon|null $email_verified_at
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereEmailVerifiedAt($value)
  * @mixin \Eloquent
  */
 class User extends Authenticatable

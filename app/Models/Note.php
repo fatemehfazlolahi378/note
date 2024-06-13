@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $title
@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Note whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Note whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Note whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Note withSearch($request)
  * @mixin \Eloquent
  */
 class Note extends Model
@@ -35,5 +36,20 @@ class Note extends Model
     public function category()
     {
         return $this->belongsTo(Category::class , 'category_id');
+    }
+
+    public function scopeWithSearch($query, $request)
+    {
+        $where = [];
+
+        if ($request->has('title')) {
+            $value = $request->get('title');
+            array_push($where, ['title', $value]);
+        }
+        if (count($where) > 0) {
+            return $query->where($where);
+        } else {
+            return $query;
+        }
     }
 }

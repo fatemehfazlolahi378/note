@@ -8,6 +8,7 @@
             </ul>
             <a href="{{route('dashboard.notes.create')}}" class="flex items-center justify-center lg:w-[150px] w-[130px] xl:h-[45px] h-[40px] xl:leading-[45px] leading-[40px] bg-[#326273] text-white text-[12px] lg:text-sm rounded-[8px]"><span class="fa fa-plus ml-1"></span>افزودن یادداشت جدید</a>
         </div>
+        @include('dashboard.note.search')
         <div class="p-4 lg:px-8 lg:py-5 bg-[#F3F7FA] rounded-lg">
             <h3 class="text-[14px] lg:text-[16px]">لیست یادداشت</h3>
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">

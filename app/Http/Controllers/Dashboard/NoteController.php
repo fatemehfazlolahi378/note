@@ -22,9 +22,9 @@ class NoteController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $notes = $this->note->paginate($this->perPage());
+        $notes = $this->note->withSearch($request)->paginate($this->perPage());
         return view('dashboard.note.index', compact('notes'));
 
     }
