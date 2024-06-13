@@ -17,4 +17,19 @@ class Controller extends BaseController
     {
         return \request()->has('perPage') ? \request()->get('perPage') : $this->per;
     }
+
+    public function handleUrlStorage($files, $storagePath, $type = null, $title = null)
+    {
+        $path = [];
+
+        foreach ($files as $key => $photo) {
+            $url = \Storage::putFile($storagePath, $photo);
+            $url = explode('/', $url);
+            array_shift($url);
+            $path[$key]['source'] = implode('/', $url);
+            $path[$key]['type'] = $type;
+            $path[$key]['title'] = $title;
+        }
+        return $path;
+    }
 }

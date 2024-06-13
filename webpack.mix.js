@@ -23,6 +23,7 @@ mix.webpackConfig(
 
 
 mix.js('resources/js/desktop/app.js', 'public/js/desktop')
+    .js('resources/js/dashboard/app.js', 'public/js/dashboard')
     .sass('resources/sass/desktop/app.scss', 'public/css/desktop')
     .copyDirectory('resources/sass/images', 'public/images');
 

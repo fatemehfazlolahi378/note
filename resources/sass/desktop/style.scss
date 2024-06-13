@@ -15,25 +15,15 @@
     color: #ffed66;
 }
 
-
-.group-error-validate{
-    color: #f95252;
-    position: absolute;
-    top: 8px;
-    left: 7px;
-    font-size: 13px !important;
+.show-modal{
+    visibility: visible !important ;
+    opacity: 1 !important;
+    transition: all 0.3s ease;
 }
-.select2-error{
-    border: 1px solid red !important;
+.show-tooltip{
+    opacity: 1 !important;
+    visibility: visible !important;
 }
-.is-invalid{
-    border: 1px solid red !important;
-}
-.valid{
-    border: 1px solid #00c800 !important
-}
-
-
 
 .select2-search--inline .select2-search__field{
     line-height: 32px !important;
