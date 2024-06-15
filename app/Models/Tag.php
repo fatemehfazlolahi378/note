@@ -21,6 +21,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Tag whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Tag whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Tag whereUpdatedAt($value)
+ * @property int $user_id
+ * @method static \Illuminate\Database\Eloquent\Builder|Tag whereUserId($value)
  * @mixin \Eloquent
  */
 class Tag extends Model

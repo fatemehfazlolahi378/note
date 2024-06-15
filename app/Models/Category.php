@@ -32,6 +32,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereParentId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereUpdatedAt($value)
+ * @property int $user_id
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereUserId($value)
  * @mixin \Eloquent
  */
 class Category extends Model

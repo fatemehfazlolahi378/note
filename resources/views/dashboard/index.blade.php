@@ -1,8 +1,8 @@
 @extends('dashboard.master')
 @section('content')
 @php
-    $note_count = \App\Models\Note::count();
-    $category_count =\App\Models\Category::count();
+    $note_count = \App\Models\Note::whereUserId(auth()->id())->count();
+    $category_count =\App\Models\Category::whereUserId(auth()->id())->count();
 @endphp
     <div class="index p-4 lg:p-8">
         <h1 class="lg:my-3 text-[14px] lg:text-[16px]">صفحه ی اصلی</h1>

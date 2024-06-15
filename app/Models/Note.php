@@ -26,6 +26,9 @@ use Laravel\Scout\Searchable;
  * @method static \Illuminate\Database\Eloquent\Builder|Note whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Note whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Note withSearch($request)
+ * @property int $user_id
+ * @property-read mixed $url
+ * @method static \Illuminate\Database\Eloquent\Builder|Note whereUserId($value)
  * @mixin \Eloquent
  */
 class Note extends Model
@@ -64,6 +67,10 @@ class Note extends Model
     public function searchableAs()
     {
         return 'note-index';
+    }
+    public function shouldBeSearchable()
+    {
+        return $this->user_id ==  auth()->id();
     }
 
 

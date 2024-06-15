@@ -27,7 +27,7 @@ class NoteController extends Controller
      */
     public function index(Request $request)
     {
-        $notes = $this->note->withSearch($request)->paginate($this->perPage());
+        $notes = $this->note->whereUserId(auth()->id())->withSearch($request)->paginate($this->perPage());
         return view('dashboard.note.index', compact('notes'));
 
     }
@@ -37,7 +37,7 @@ class NoteController extends Controller
      */
     public function create()
     {
-        $categories = $this->category->whereParentId(0)->get();
+        $categories = $this->category->whereUserId(auth()->id())->whereParentId(0)->get();
         return view('dashboard.note.create', compact('categories'));
     }
 
@@ -49,6 +49,7 @@ class NoteController extends Controller
         $this->note->title = $request->get('title');
         $this->note->category_id = $request->get('category_id');
         $this->note->content = $request->get('content');
+        $this->note->user_id = auth()->id();
         $this->note->save();
 
         toast('یادداشت با موفقیت ثبت شد','success');
@@ -72,7 +73,7 @@ class NoteController extends Controller
     public function edit(Note $note)
     {
         $all_categories = [];
-        $categories = $this->category->whereParentId($note->category->parent_id)->get();
+        $categories = $this->category->whereUserId(auth()->id())->whereParentId($note->category->parent_id)->get();
         $categories->map(function ($category) use ($note){
             $category->selected = $category->id == $note->category_id ? true : false;
         });

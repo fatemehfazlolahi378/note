@@ -21,7 +21,7 @@ class TagController extends Controller
      */
     public function index()
     {
-        $tags = $this->tag->paginate($this->perPage());
+        $tags = $this->tag->whereUserId(auth()->id())->paginate($this->perPage());
         return view('dashboard.tag.index' , compact('tags'));
     }
 
@@ -39,6 +39,7 @@ class TagController extends Controller
     public function store(TagStoreRequest $request)
     {
         $this->tag->name = $request->get('name');
+        $this->tag->id = auth()->id();
         $this->tag->save();
 
         toast('برچسب با موفقیت ثبت شد','success');

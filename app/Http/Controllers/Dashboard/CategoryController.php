@@ -26,7 +26,7 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-        $categories = $this->category->orderBy('name')->paginate($this->perPage());
+        $categories = $this->category->whereUserId(auth()->id())->orderBy('name')->paginate($this->perPage());
         return view('dashboard.category.index' , compact('categories'));
     }
 
@@ -35,7 +35,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $categories = $this->category->get();
+        $categories = $this->category->whereUserId(auth()->id())->get();
         $tags = $this->tag->get();
         return view('dashboard.category.create' , compact('categories','tags'));
     }
@@ -50,6 +50,7 @@ class CategoryController extends Controller
             $this->category->slug = \Str::lower(str_replace(' ', '-', $request->get('slug')));
             $this->category->icon = $request->get('icon');
             $this->category->parent_id = $request->get('parent_id');
+            $this->category->user_id = auth()->id();
             $this->category->save();
 
             if($request->has('tags')){
@@ -79,7 +80,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        $categories = $this->category->get();
+        $categories = $this->category->whereUserId(auth()->id())->get();
         $tags = $this->tag->get();
         return view('dashboard.category.edit', compact('category' , 'categories','tags'));
     }
@@ -148,7 +149,7 @@ class CategoryController extends Controller
 
     public function list()
     {
-        $categories = $this->category->whereParentId(0)->get();
+        $categories = $this->category->whereParentId(0)->whereUserId(auth()->id())->get();
         return view('dashboard.category.list' , compact('categories'));
     }
 
