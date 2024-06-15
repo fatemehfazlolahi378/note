@@ -21,7 +21,7 @@ class LoginController extends Controller
         $request->validate([
             'mobile' => 'required|iran_mobile'
         ]);
-        $mobile = $request->get('mobile');
+        $mobile = digit_to_english($request->get('mobile'));
         $user = $this->user->whereMobile($mobile)->exists();
         if($user){
             return response()->json(['login' => true]);
@@ -45,7 +45,7 @@ class LoginController extends Controller
         if( $password == $repeatPass){
             $user->mobile_confirmation = 1;
             $user->full_name = \request()->get('full_name');
-            $user->password = Hash::make(\request()->get('password'));
+            $user->password = digit_to_english(Hash::make(\request()->get('password')));
             $user->save();
             \Auth::login($user);
             return response()->json(['login' => 'success'],200);

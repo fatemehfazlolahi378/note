@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 /**
  *
@@ -29,10 +30,17 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Note extends Model
 {
+    use Searchable;
     use HasFactory;
     protected $table = 'notes';
     protected $guarded = ['id'];
+    protected $appends = ['url'];
 
+
+    public function getUrlAttribute()
+    {
+        return hashid($this->id,'note') . '-' . url_slug($this->title);
+    }
     public function category()
     {
         return $this->belongsTo(Category::class , 'category_id');
@@ -51,5 +59,41 @@ class Note extends Model
         } else {
             return $query;
         }
+    }
+
+    public function searchableAs()
+    {
+        return 'note-index';
+    }
+
+
+    public function sortableAttributes()
+    {
+        return
+            [
+                'title'
+            ];
+    }
+
+    public function toSearchableArray()
+    {
+        return [
+            'id' => hashid($this->id, 'note'),
+            'title' => $this->title,
+            'content' => $this->content,
+        ];
+    }
+
+    public function sortSearchResult()
+    {
+        return [
+            'title:asc',
+            'typo',
+            'words',
+            'sort',
+            'proximity',
+            'attribute',
+            'exactness'
+        ];
     }
 }

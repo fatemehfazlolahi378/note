@@ -3,8 +3,11 @@
     <form action="{{route('dashboard.notes.index')}}" id="panel-form-search">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-                <label class="block text-sm">عنوان</label>
-                <input name="title" id="title" class="w-full rounded-lg border border-[#e8e8f7] px-[12px] lg:px-[16px] py-[8px] lg:py-[10px] focus:ring-0 focus:border-[#e8e8f7] text-sm mt-2" type="text" placeholder="عنوان"  value="{{Request()->get('title')}}">
+                <div class="relative box-search">
+                    <input name="query" class="meili-search-input w-[301px] xl:h-[42px] h-[40px] xl:text-[16px] text-[14px] bg-[#F0F0F0] rounded-[10px] border-2 border-[#2D6A4F] px-[19px] placeholder-[#1B4332] focus:ring-0 focus:border-[#2D6A4F]" type="text" placeholder="جستجوکنید..."/>
+                    <i class="ag-i-search-normal icon-search-main absolute xl:text-[19px] left-[10px] top-[10px]" id="archive-tick"></i>
+                    <div class="absolute meilisearch-response  bg-white rounded-[5px] mt-1 top-[40px] right-0 left-0 hidden py-3 max-h-[400px]"></div>
+                </div>
             </div>
         </div>
         <div class="flex justify-center sm:justify-end items-center gap-2 mt-6">

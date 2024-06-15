@@ -8,10 +8,14 @@
         "php": "^8.1",
         "anetwork/validation": "^2.3",
         "guzzlehttp/guzzle": "^7.2",
+        "http-interop/http-factory-guzzle": "^1.2",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
+        "laravel/scout": "^10.9",
         "laravel/tinker": "^2.8",
-        "realrashid/sweet-alert": "^7.1"
+        "meilisearch/meilisearch-php": "^1.8",
+        "realrashid/sweet-alert": "^7.1",
+        "vinkla/hashids": "^11.0"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.0",
@@ -29,8 +33,12 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": [
+            "app/Http/helpers.php"
+        ]
     },
+
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"

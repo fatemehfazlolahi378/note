@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Desktop\Note\NoteStoreRequest;
 use App\Http\Requests\Desktop\Note\NoteUpdateRequest;
+use App\Http\Resources\AdvertiseSearchResource;
+use App\Http\Resources\NoteResource;
 use App\Models\Category;
 use App\Models\Note;
 use Illuminate\Http\Request;
+use Meilisearch\Client;
 
 class NoteController extends Controller
 {
@@ -56,9 +59,11 @@ class NoteController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($slug)
     {
-        //
+      $id = unhashid(explode('-' , $slug)[0] , 'note');
+      $note = $this->note->whereId($id)->first();
+      return view('dashboard.note.show' , compact('note'));
     }
 
     /**
@@ -112,5 +117,20 @@ class NoteController extends Controller
     {
         $note->delete();
         return response()->json('یادداشت مورد نظر با موفقیت حذف شد', 200);
+    }
+
+    /**
+     * Get date with meilisearch.
+     */
+    public function getData(Request $request)
+    {
+        $client = new Client('http://127.0.0.1:7700', config('scout.meilisearch.key'));
+        if ($request->get('value')) {
+            $documents = [
+                'note'
+                => NoteResource::collection($client->index('note-index')->search($request->get('value'),['limit'=>15])->getHits()),
+            ];
+            return \Response::json($documents);
+        }
     }
 }

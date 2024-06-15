@@ -11,3 +11,4 @@ require('./note');
 require('./sidebar');
 require('./category');
 require('./profile')
+require('./meiliSearch')

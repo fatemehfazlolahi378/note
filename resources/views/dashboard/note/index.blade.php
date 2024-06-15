@@ -4,7 +4,7 @@
         <div class="flex justify-between lg:py-4">
             <ul class="flex items-center text-[12px] lg:text-[16px]">
                 <li class="after:content-['/'] after:px-1 lg:after:px-2"><a href="{{route('dashboard.index')}}">صفحه اصلی</a></li>
-                <li> لیست دسته ها</li>
+                <li> لیست یادداشت ها</li>
             </ul>
             <a href="{{route('dashboard.notes.create')}}" class="flex items-center justify-center lg:w-[150px] w-[130px] xl:h-[45px] h-[40px] xl:leading-[45px] leading-[40px] bg-[#326273] text-white text-[12px] lg:text-sm rounded-[8px]"><span class="fa fa-plus ml-1"></span>افزودن یادداشت جدید</a>
         </div>
@@ -54,6 +54,9 @@
                                     <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownDefaultButton">
                                         <li>
                                             <a href="{{route('dashboard.notes.edit', $note)}}" class="flex items-center justify-start gap-1 px-4 py-2 hover:bg-gray-100 text-lime-700"><span class="fa fa-edit ml-1"></span>ویرایش</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{route('dashboard.notes.show', ['slug'=> hashid($note->id, 'note') . '-' . url_slug($note->title),'note'])}}" class="flex items-center justify-start gap-1 px-4 py-2 hover:bg-gray-100 text-orange-700"><span class="fa fa-edit ml-1"></span>نمایش</a>
                                         </li>
                                         <li>
                                             <button type="button" data-id="{{$note->id}}" data-title="{{$note->name}}" class="delete w-full flex items-center justify-start gap-1 px-4 py-2 hover:bg-gray-100 text-rose-700"><span class="fa fa-trash ml-1"></span>حذف</button>

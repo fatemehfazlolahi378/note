@@ -25,8 +25,11 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.' , 'middleware' => 'a
     Route::resource('/categories',\App\Http\Controllers\Dashboard\CategoryController::class);
     Route::resource('/tags',\App\Http\Controllers\Dashboard\TagController::class);
     Route::resource('/notes',\App\Http\Controllers\Dashboard\NoteController::class);
+    Route::get('/notes/{slug}',[\App\Http\Controllers\Dashboard\NoteController::class,'show'])->name('notes.show');
     Route::get('/list-category',[\App\Http\Controllers\Dashboard\CategoryController::class , 'list'])->name('categories.list');
     Route::get('/subcategory/get/{id}',[\App\Http\Controllers\Dashboard\CategoryController::class,'getSubCat']);
+    Route::get('/meili', [\App\Http\Controllers\Dashboard\NoteController::class,'getData']);
+
 
 
 });

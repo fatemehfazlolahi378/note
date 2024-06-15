@@ -34,6 +34,7 @@
     };
     Category.init({
         mainCategoryFilter:$('.main-category-filter'),
+        // select_multiple:$('.select-multiple').select2(),
     });
 
 })(window.jQuery);
