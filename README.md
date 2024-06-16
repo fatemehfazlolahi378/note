@@ -64,3 +64,15 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## use meilisearch
+
+1-install meilisearch on the system
+2-rnu the meilisearch of the command meilisearch on the project
+3-Putting the master key in .env
+  SCOUT_DRIVER=meilisearch
+  MEILISEARCH_HOST=http://127.0.0.1:7700
+  MEILISEARCH_KEY=1nuIbjyKHIUmfbf-wFF0ytPP2hDcwIsxis3I3c9p6Tw
+.Execution of the command  php artisan scout:import "App\Model\Note" in project
+
+
